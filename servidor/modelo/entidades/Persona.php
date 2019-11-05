@@ -1,10 +1,10 @@
 <?php
-class Persona
+class Persona implements JsonSerializable
 {
 
     // Referencia a la conexión de la BD
     private $conexion;
-    const NOMBRE_TABLA = "personas";
+    private $NOMBRE_TABLA = "personas";
 
     private $id;
     private $tipoDocumento;
@@ -19,29 +19,31 @@ class Persona
     private $fechaCreacion;
     private $fechaActualizacion;
 
+    // Función que nos ayuda a convertir un arreglo que represente una fila en un objeto de tipo Persona
+    private $convertirArregloAPersona;
+
     // Constructor que recibe referencia la conexión de la BD
     public function __construct($bd)
     {
         $this->conexion = $bd;
-    }
 
-    // Función que nos ayuda a convertir un arreglo que represente una fila en un objeto de tipo Persona
-    protected function convertirArregloAPersona($registro)
-    {
-        $persona = new Persona(null); // Creamos una instancia de Persona sin referencia a la conexión como objeto plano
-        $persona->setId($registro['ID']);
-        $persona->setTipoDocumento($registro['TIPO_DOCUMENTO']);
-        $persona->setNumeroDocumento($registro['NUMERO_DOCUMENTO']);
-        $persona->setPrimerNombre($registro['PRIMER_NOMBRE']);
-        $persona->setSegundoNombre($registro['SEGUNDO_NOMBRE']);
-        $persona->setPrimeroApellido($registro['PRIMER_APELLIDO']);
-        $persona->setSegundoApellido($registro['SEGUNDO_APELLIDO']);
-        $persona->setFechaNacimiento($registro['FECHA_NACIMIENTO']);
-        $persona->setCorreoElectronico($registro['CORREO_ELECTRONICO']);
-        $persona->setAvatar($registro['AVATAR']);
-        $persona->setFechaCreacion($registro['FECHA_CREACION']);
-        $persona->setFechaActualizacion($registro['FECHA_ACTUALIZACION']);
-        return $persona;
+        $this->convertirArregloAPersona = function ($registro) {
+            
+            $persona = new Persona(null); // Creamos una instancia de Persona sin referencia a la conexión como objeto plano
+            $persona->setId($registro['ID']);
+            $persona->setTipoDocumento($registro['TIPO_DOCUMENTO']);
+            $persona->setNumeroDocumento($registro['NUMERO_DOCUMENTO']);
+            $persona->setPrimerNombre($registro['PRIMER_NOMBRE']);
+            $persona->setSegundoNombre($registro['SEGUNDO_NOMBRE']);
+            $persona->setPrimerApellido($registro['PRIMER_APELLIDO']);
+            $persona->setSegundoApellido($registro['SEGUNDO_APELLIDO']);
+            $persona->setFechaNacimiento($registro['FECHA_NACIMIENTO']);
+            $persona->setCorreoElectronico($registro['CORREO_ELECTRONICO']);
+            $persona->setAvatar($registro['AVATAR']);
+            $persona->setFechaCreacion($registro['FECHA_CREACION']);
+            $persona->setFechaActualizacion($registro['FECHA_ACTUALIZACION']);
+            return $persona;
+        };
     }
 
     /**
@@ -51,7 +53,7 @@ class Persona
     {
         $query = "SELECT
         ID, TIPO_DOCUMENTO, NUMERO_DOCUMENTO, PRIMER_NOMBRE, SEGUNDO_NOMBRE,
-         PRIMER_APELLIDO, SEGUNDO_APELLIDO, FECHA_NACIMIENTO, CORREO_ELECTRONICO, AVATAR, FECHA_CREACION. FECHA_ACTUALIZACION
+         PRIMER_APELLIDO, SEGUNDO_APELLIDO, FECHA_NACIMIENTO, CORREO_ELECTRONICO, AVATAR, FECHA_CREACION, FECHA_ACTUALIZACION
             FROM
                 " . $this->NOMBRE_TABLA . " p
             ORDER BY
@@ -65,8 +67,7 @@ class Persona
         $listaRegistros = $sentencia->fetchAll();
 
         // Ejecutamos la función `convertirArregloAPersona` sobre cada uno de los registros del arreglo `$listaRegistros`
-        $listaPersonas = array_map('convertirArregloAPersona', $listaRegistros);
-
+        $listaPersonas = array_map($this->convertirArregloAPersona, $listaRegistros);
         return $listaPersonas;
     }
 
@@ -193,5 +194,9 @@ class Persona
     public function getFechaActualizacion()
     {
         return $this->fechaActualizacion;
+    }
+
+    public function jsonSerialize() {
+        return (object) get_object_vars($this);
     }
 }

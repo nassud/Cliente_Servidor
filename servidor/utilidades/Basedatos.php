@@ -5,7 +5,7 @@ class Basedatos
 
     // Datos de conexión a la base de datos
     private $host = "localhost"; // Este es el nombre de dominio donde escucha la BD
-    private $nombre_bd = "api_db"; // El nombre de la base de datos
+    private $nombre_bd = "cliente_servidor"; // El nombre de la base de datos
     private $usuario = "root"; // El usuario que usaremos para autenticarnos
     private $clave = ""; // La clave del usuario
     public $conexion; // Referencia a nuestra objeto de conexión a la BD
