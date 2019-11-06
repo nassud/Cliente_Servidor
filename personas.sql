@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 30, 2019 at 02:37 AM
+-- Generation Time: Nov 06, 2019 at 10:01 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -38,8 +38,18 @@ CREATE TABLE `personas` (
   `SEGUNDO_APELLIDO` varchar(100) COLLATE latin1_spanish_ci NOT NULL,
   `FECHA_NACIMIENTO` datetime NOT NULL,
   `CORREO_ELECTRONICO` varchar(100) COLLATE latin1_spanish_ci NOT NULL,
-  `AVATAR` varchar(200) COLLATE latin1_spanish_ci NOT NULL COMMENT 'URI al archivo de imagen'
+  `AVATAR` varchar(200) COLLATE latin1_spanish_ci NOT NULL COMMENT 'URI al archivo de imagen',
+  `FECHA_CREACION` datetime NOT NULL,
+  `FECHA_ACTUALIZACION` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Dumping data for table `personas`
+--
+
+INSERT INTO `personas` (`ID`, `TIPO_DOCUMENTO`, `NUMERO_DOCUMENTO`, `PRIMER_NOMBRE`, `SEGUNDO_NOMBRE`, `PRIMER_APELLIDO`, `SEGUNDO_APELLIDO`, `FECHA_NACIMIENTO`, `CORREO_ELECTRONICO`, `AVATAR`, `FECHA_CREACION`, `FECHA_ACTUALIZACION`) VALUES
+(1, 1, '0987264542', 'SEBASTIAN', 'JOHAN', 'GOMEZ', 'DUSSAN', '1986-09-13 00:00:00', 'nassud@gmail.com', '', '2019-11-05 00:00:00', '0000-00-00 00:00:00'),
+(2, 1, '123456789', 'FULANITO', 'NN', 'NIEVES', 'HUERFANO', '2019-11-05 00:00:00', 'fulanito@fulanos.net', '', '2019-11-05 00:00:00', '0000-00-00 00:00:00');
 
 --
 -- Indexes for dumped tables
@@ -59,7 +69,7 @@ ALTER TABLE `personas`
 -- AUTO_INCREMENT for table `personas`
 --
 ALTER TABLE `personas`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
