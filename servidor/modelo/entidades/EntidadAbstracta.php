@@ -6,8 +6,11 @@ abstract class EntidadAbstracta
     // Lista de atributos de las entidades que no se serializarán en formato JSON
     const LLAVES_NO_VISIBLES = ['conexion', 'NOMBRE_TABLA', 'convertirArregloAPersona'];
 
-    abstract public function leerTodos();
-    abstract public function leerUno($id);
+    abstract public function seleccionarTodos();
+    abstract public function seleccionarUno($id);
+    abstract public function insertar($entidad);
+    abstract public function modificar($entidad);
+    abstract public function eliminar($id);
 
     /**
      * Remueve el arreglo parámetro las llaves que no se deben mostrar al serializar en JSON

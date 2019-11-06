@@ -21,8 +21,11 @@ class Persona extends EntidadAbstracta implements JsonSerializable
     private $fechaCreacion;
     private $fechaActualizacion;
 
-    // Referencia a función que nos ayuda a convertir un arreglo que represente una fila en un objeto de tipo Persona
-    private $convertirArregloAPersona;
+    // Referencia a función que nos ayuda a convertir un arreglo que represente una fila de la BD en un objeto de tipo Persona
+    private $convertirArregloDeBdAPersona;
+
+    // Referencia a función que nos ayuda a convertir un arreglo de JSON en un objeto de tipo Persona
+    public $convertirArregloDeJsonAPersona;
 
     /**
      * Constructor que recibe referencia la conexión de la BD
@@ -31,8 +34,9 @@ class Persona extends EntidadAbstracta implements JsonSerializable
     {
         $this->conexion = $bd;
 
-        // Aquí implementamos la función de conversión de arreglo a objeto
-        $this->convertirArregloAPersona = function ($registro) {
+        // Aquí implementamos la función de conversión de arreglo de BD a objeto. Los nombres de los atributos tienen
+        // el formato de los nombres de columna de la base de datos
+        $this->convertirArregloDeBdAPersona = function ($registro) {
 
             $persona = new Persona(null); // Creamos una instancia de Persona sin referencia a la conexión como objeto plano
             $persona->setId($registro['ID']);
@@ -49,12 +53,34 @@ class Persona extends EntidadAbstracta implements JsonSerializable
             $persona->setFechaActualizacion($registro['FECHA_ACTUALIZACION']);
             return $persona;
         };
+
+        // Esta función es muy similar a la anterior excepto que espera los nombres de los atributos en formato de objeto
+        $this->convertirArregloDeJsonAPersona = function ($registro) {
+
+            $persona = new Persona(null); // Creamos una instancia de Persona sin referencia a la conexión como objeto plano
+            // El id solo existe si se trata de una modificación de persona. Si es una inserción, la BD asignará un ID
+            if (isset($registro['id'])) {
+                $persona->setId($registro['id']);
+            }
+            $persona->setTipoDocumento($registro['tipoDocumento']);
+            $persona->setNumeroDocumento($registro['numeroDocumento']);
+            $persona->setPrimerNombre($registro['primerNombre']);
+            $persona->setSegundoNombre($registro['segundoNombre']);
+            $persona->setPrimerApellido($registro['primerApellido']);
+            $persona->setSegundoApellido($registro['segundoApellido']);
+            $persona->setFechaNacimiento($registro['fechaNacimiento']);
+            $persona->setCorreoElectronico($registro['correoElectronico']);
+            $persona->setAvatar($registro['avatar']);
+            $persona->setFechaCreacion($registro['fechaCreacion']);
+            $persona->setFechaActualizacion($registro['fechaActualizacion']);
+            return $persona;
+        };
     }
 
     /**
      * Consulta a la BD todos los registros
      */
-    public function leerTodos()
+    public function seleccionarTodos()
     {
         $query = "SELECT
         ID, TIPO_DOCUMENTO, NUMERO_DOCUMENTO, PRIMER_NOMBRE, SEGUNDO_NOMBRE,
@@ -79,7 +105,7 @@ class Persona extends EntidadAbstracta implements JsonSerializable
     /**
      * Consulta a la BD un solo registro con ID `$id` parámetro
      */
-    public function leerUno($id)
+    public function seleccionarUno($id)
     {
         $query = "SELECT
         ID, TIPO_DOCUMENTO, NUMERO_DOCUMENTO, PRIMER_NOMBRE, SEGUNDO_NOMBRE,
@@ -102,6 +128,20 @@ class Persona extends EntidadAbstracta implements JsonSerializable
         // Ejecutamos la función referenciada en la variable `convertirArregloAPersona`
         return ($this->convertirArregloAPersona)($registro);
     }
+
+    public function insertar($entidad)
+    {
+        $query = "INSERT INTO " . $this->NOMBRE_TABLA . "
+        (ID, TIPO_DOCUMENTO, NUMERO_DOCUMENTO, PRIMER_NOMBRE, SEGUNDO_NOMBRE,
+         PRIMER_APELLIDO, SEGUNDO_APELLIDO, FECHA_NACIMIENTO, CORREO_ELECTRONICO, AVATAR, FECHA_CREACION, FECHA_ACTUALIZACION)
+            VALUES ()";
+    }
+
+    public function modificar($entidad)
+    {}
+
+    public function eliminar($id)
+    {}
 
     // Implementación de la interface `JsonSerializable` para uso de json_encode con esta clase
     public function jsonSerialize()

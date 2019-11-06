@@ -26,19 +26,19 @@ class PersonasControlador extends ControladorAbstracto
         switch ($this->metodoSolicitud) {
             case 'GET': // Solo admitimos solicitudes de lectura
                 if ($this->identificadorRegistro) {
-                    $respuesta = $this->getPersona($this->identificadorRegistro);
+                    $respuesta = $this->seleccionarPersona($this->identificadorRegistro);
                 } else {
-                    $respuesta = $this->getPersonas();
+                    $respuesta = $this->seleccionarPersonas();
                 }
                 break;
             case 'POST': // Admitimos creación de un registro
-                $respuesta = $this->crearPersona();
+                $respuesta = $this->insertarPersona();
                 break;
             case 'PUT': // Admitimos la actualización de un registro
-                $respuesta = $this->actualizarPersona($this->identificadorRegistro);
+                $respuesta = $this->modificarPersona($this->identificadorRegistro);
                 break;
             case 'DELETE': // Admitimos el borrado de un registro
-                $respuesta = $this->borrarPersona($this->identificadorRegistro);
+                $respuesta = $this->eliminarPersona($this->identificadorRegistro);
                 break;
             default: // El método utilizado no es válido así que respondemos con error
                 $respuesta = $this->respuestaNoEncontrado();
@@ -48,19 +48,27 @@ class PersonasControlador extends ControladorAbstracto
         parent::responderPeticion($respuesta, ControladorAbstracto::SOLICITUD_CORRECTA);
     }
 
-    private function getPersonas()
+    private function seleccionarPersonas()
     {
-        return $this->personaEntidad->leerTodos();
+        return $this->personaEntidad->seleccionarTodos();
     }
 
-    private function getPersona($id)
+    private function seleccionarPersona($id)
     {
         try {
-            $resultado = $this->personaEntidad->leerUno($id);
+            $resultado = $this->personaEntidad->seleccionarUno($id);
             return $resultado;
         } catch (Exception $excepcion) {
             return $excepcion->getMessage();
         }
+    }
+
+    private function insertarPersona()
+    {
+        // Obtiene la entrada POST y la decodifica desde JSON a forma de arreglo
+        $personaEnArreglo = (array) json_decode(file_get_contents('php://input'), true);
+        $personaEnObjeto = ($this->personaEntidad->convertirArregloDeJsonAPersona)($personaEnArreglo);
+        $this->personaEntidad->insertar($personaEnObjeto);
     }
 
 }
