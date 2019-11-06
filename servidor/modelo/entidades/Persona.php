@@ -1,5 +1,7 @@
 <?php
-class Persona implements JsonSerializable
+require_once 'EntidadAbstracta.php';
+
+class Persona extends EntidadAbstracta implements JsonSerializable
 {
 
     // Referencia a la conexión de la BD
@@ -19,16 +21,19 @@ class Persona implements JsonSerializable
     private $fechaCreacion;
     private $fechaActualizacion;
 
-    // Función que nos ayuda a convertir un arreglo que represente una fila en un objeto de tipo Persona
+    // Referencia a función que nos ayuda a convertir un arreglo que represente una fila en un objeto de tipo Persona
     private $convertirArregloAPersona;
 
-    // Constructor que recibe referencia la conexión de la BD
+    /**
+     * Constructor que recibe referencia la conexión de la BD
+     */
     public function __construct($bd)
     {
         $this->conexion = $bd;
 
+        // Aquí implementamos la función de conversión de arreglo a objeto
         $this->convertirArregloAPersona = function ($registro) {
-            
+
             $persona = new Persona(null); // Creamos una instancia de Persona sin referencia a la conexión como objeto plano
             $persona->setId($registro['ID']);
             $persona->setTipoDocumento($registro['TIPO_DOCUMENTO']);
@@ -47,7 +52,7 @@ class Persona implements JsonSerializable
     }
 
     /**
-     * Consultas a la BD
+     * Consulta a la BD todos los registros
      */
     public function leerTodos()
     {
@@ -69,6 +74,39 @@ class Persona implements JsonSerializable
         // Ejecutamos la función `convertirArregloAPersona` sobre cada uno de los registros del arreglo `$listaRegistros`
         $listaPersonas = array_map($this->convertirArregloAPersona, $listaRegistros);
         return $listaPersonas;
+    }
+
+    /**
+     * Consulta a la BD un solo registro con ID `$id` parámetro
+     */
+    public function leerUno($id)
+    {
+        $query = "SELECT
+        ID, TIPO_DOCUMENTO, NUMERO_DOCUMENTO, PRIMER_NOMBRE, SEGUNDO_NOMBRE,
+         PRIMER_APELLIDO, SEGUNDO_APELLIDO, FECHA_NACIMIENTO, CORREO_ELECTRONICO, AVATAR, FECHA_CREACION, FECHA_ACTUALIZACION
+            FROM
+                " . $this->NOMBRE_TABLA . " p
+            WHERE
+                p.ID = " . $id;
+
+        // Preparar sentencia
+        $sentencia = $this->conexion->prepare($query);
+        $sentencia->execute();
+
+        // Obtenemos el arreglo de filas traídas desde la tabla en la BD
+        $registro = $sentencia->fetch();
+        if ($registro === false) {
+            throw new Exception('NO_ENCONTRADO');
+        }
+
+        // Ejecutamos la función referenciada en la variable `convertirArregloAPersona`
+        return ($this->convertirArregloAPersona)($registro);
+    }
+
+    // Implementación de la interface `JsonSerializable` para uso de json_encode con esta clase
+    public function jsonSerialize()
+    {
+        return parent::serializarJSON(get_object_vars($this));
     }
 
     /**
@@ -194,9 +232,5 @@ class Persona implements JsonSerializable
     public function getFechaActualizacion()
     {
         return $this->fechaActualizacion;
-    }
-
-    public function jsonSerialize() {
-        return (object) get_object_vars($this);
     }
 }

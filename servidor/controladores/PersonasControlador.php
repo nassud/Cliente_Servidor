@@ -1,7 +1,8 @@
 <?php
+require_once 'ControladorAbstracto.php';
 require_once './modelo/entidades/Persona.php';
 
-class PersonasControlador
+class PersonasControlador extends ControladorAbstracto
 {
 
     private $conexion;
@@ -19,6 +20,7 @@ class PersonasControlador
         $this->personaEntidad = new Persona($conexion);
     }
 
+    // Implementamos la función abstracta de `ControladorAbstracto`
     public function procesarSolicitud()
     {
         switch ($this->metodoSolicitud) {
@@ -29,31 +31,36 @@ class PersonasControlador
                     $respuesta = $this->getPersonas();
                 }
                 break;
-            case 'POST':
+            case 'POST': // Admitimos creación de un registro
                 $respuesta = $this->crearPersona();
                 break;
-            case 'PUT':
-                $respuesta = $this->actualizarPersona($this->userId);
+            case 'PUT': // Admitimos la actualización de un registro
+                $respuesta = $this->actualizarPersona($this->identificadorRegistro);
                 break;
-            case 'DELETE':
-                $respuesta = $this->borrarPersona($this->userId);
+            case 'DELETE': // Admitimos el borrado de un registro
+                $respuesta = $this->borrarPersona($this->identificadorRegistro);
                 break;
-            default:
+            default: // El método utilizado no es válido así que respondemos con error
                 $respuesta = $this->respuestaNoEncontrado();
                 break;
         }
-        header($respuesta['status_code_header']);
-        if ($respuesta['body']) {
-            echo $respuesta['body'];
-        }
+
+        parent::responderPeticion($respuesta, ControladorAbstracto::SOLICITUD_CORRECTA);
     }
 
     private function getPersonas()
     {
-        $resultado = $this->personaEntidad->leerTodos();
-        $respuesta['status_code_header'] = 'HTTP/1.1 200 OK';
-        $respuesta['body'] = json_encode($resultado);
-        return $respuesta;
+        return $this->personaEntidad->leerTodos();
+    }
+
+    private function getPersona($id)
+    {
+        try {
+            $resultado = $this->personaEntidad->leerUno($id);
+            return $resultado;
+        } catch (Exception $excepcion) {
+            return $excepcion->getMessage();
+        }
     }
 
 }
