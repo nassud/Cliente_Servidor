@@ -71,4 +71,39 @@ class PersonasControlador extends ControladorAbstracto
         $this->personaEntidad->insertar($personaEnObjeto);
     }
 
+    private function modificarPersona()
+    {
+        $id = $this->identificadorRegistro;
+        try {
+            $resultado = $this->personaEntidad->seleccionarUno($id);
+            $personaEnArreglo = (array) json_decode(file_get_contents('php://input'), true);
+            $personaEnObjeto = ($this->personaEntidad->convertirArregloDeJsonAPersona)($personaEnArreglo);
+            $this->personaEntidad->modificar($id, $personaEnObjeto);
+
+            return $resultado;
+        } catch (Exception $excepcion) {
+            return $excepcion->getMessage();
+        }
+    }
+
+    private function eliminarPersona(){
+        
+        $id = $this->identificadorRegistro;
+        try {
+            $resultado = $this->personaEntidad->seleccionarUno($id);
+            $this->personaEntidad->eliminar($id);
+
+        } catch (Exception $excepcion) {
+            return $excepcion->getMessage();
+        }
+
+    }
+
+
+
+    private function respuestaNoEncontrado()
+    {
+
+        print("La RUTA o el METODO utilizado no son correctos");
+    }
 }

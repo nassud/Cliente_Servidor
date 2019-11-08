@@ -58,7 +58,7 @@ class Persona extends EntidadAbstracta implements JsonSerializable
         $this->convertirArregloDeJsonAPersona = function ($registro) {
 
             $persona = new Persona(null); // Creamos una instancia de Persona sin referencia a la conexión como objeto plano
-            // El id solo existe si se trata de una modificación de persona. Si es una inserción, la BD asignará un ID
+            // El id solo existe si se trata de una modificación de persona. Si es una inserción, la BD asignará un ID    
             if (isset($registro['id'])) {
                 $persona->setId($registro['id']);
             }
@@ -131,17 +131,74 @@ class Persona extends EntidadAbstracta implements JsonSerializable
 
     public function insertar($entidad)
     {
+        $fecha_actual = date("Y-m-d H:i:s");
+        $nacimiento = Date("Y-m-d", strtotime($entidad->fechaNacimiento));
+
         $query = "INSERT INTO " . $this->NOMBRE_TABLA . "
-        (ID, TIPO_DOCUMENTO, NUMERO_DOCUMENTO, PRIMER_NOMBRE, SEGUNDO_NOMBRE,
-         PRIMER_APELLIDO, SEGUNDO_APELLIDO, FECHA_NACIMIENTO, CORREO_ELECTRONICO, AVATAR, FECHA_CREACION, FECHA_ACTUALIZACION)
-            VALUES ()";
+            (TIPO_DOCUMENTO, NUMERO_DOCUMENTO, PRIMER_NOMBRE, SEGUNDO_NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO, FECHA_NACIMIENTO, 
+            CORREO_ELECTRONICO, AVATAR, FECHA_CREACION)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        $sentencia = $this->conexion->prepare($query);
+        $sentencia->bindParam(1, $entidad->tipoDocumento);
+        $sentencia->bindParam(2, $entidad->numeroDocumento);
+        $sentencia->bindParam(3, $entidad->primerNombre);
+        $sentencia->bindParam(4, $entidad->segundoNombre);
+        $sentencia->bindParam(5, $entidad->primerApellido);
+        $sentencia->bindParam(6, $entidad->segundoApellido);
+        $sentencia->bindParam(7, $nacimiento);
+        $sentencia->bindParam(8, $entidad->correoElectronico);
+        $sentencia->bindParam(9, $entidad->avatar);
+        $sentencia->bindParam(10, $fecha_actual);
+
+        if ($sentencia->execute()) {
+            print("El registro ha sido añadido");
+        } else {
+            print_r($sentencia->errorInfo());
+        }
     }
 
-    public function modificar($entidad)
-    {}
+    public function modificar($id, $entidad)
+    {
+        $fecha_actual = date("Y-m-d H:i:s");
+        $nacimiento = Date("Y-m-d", strtotime($entidad->fechaNacimiento));
+        $query = "UPDATE " . $this->NOMBRE_TABLA . " SET TIPO_DOCUMENTO = ?, NUMERO_DOCUMENTO = ?, PRIMER_NOMBRE = ?, SEGUNDO_NOMBRE = ?, 
+            PRIMER_APELLIDO = ?, SEGUNDO_APELLIDO = ?, FECHA_NACIMIENTO = ?, CORREO_ELECTRONICO = ?, AVATAR = ?, FECHA_ACTUALIZACION = ?
+            WHERE ID = ? ;";
+
+        $sentencia = $this->conexion->prepare($query);
+        $sentencia->bindParam(1, $entidad->tipoDocumento);
+        $sentencia->bindParam(2, $entidad->numeroDocumento);
+        $sentencia->bindParam(3, $entidad->primerNombre);
+        $sentencia->bindParam(4, $entidad->segundoNombre);
+        $sentencia->bindParam(5, $entidad->primerApellido);
+        $sentencia->bindParam(6, $entidad->segundoApellido);
+        $sentencia->bindParam(7, $nacimiento);
+        $sentencia->bindParam(8, $entidad->correoElectronico);
+        $sentencia->bindParam(9, $entidad->avatar);
+        $sentencia->bindParam(10, $fecha_actual);
+        $sentencia->bindParam(11, $id);
+
+
+        if ($sentencia->execute()) {
+            print("El registro ha sido actualizado");
+        } else {
+            print_r($sentencia->errorInfo());
+        }
+    }
 
     public function eliminar($id)
-    {}
+    {
+        $query = "DELETE FROM " . $this->NOMBRE_TABLA . " 
+                WHERE ID = ? ;";
+        $sentencia = $this->conexion->prepare($query);
+        $sentencia->bindParam(1, $id);
+        if ($sentencia->execute()) {
+            print("El registro ha sido eliminado");
+        } else {
+            print_r($sentencia->errorInfo());
+        }
+    }
 
     // Implementación de la interface `JsonSerializable` para uso de json_encode con esta clase
     public function jsonSerialize()
