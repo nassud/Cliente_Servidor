@@ -97,8 +97,8 @@ class Persona extends EntidadAbstracta implements JsonSerializable
         // Obtenemos el arreglo de filas traídas desde la tabla en la BD
         $listaRegistros = $sentencia->fetchAll();
 
-        // Ejecutamos la función `convertirArregloAPersona` sobre cada uno de los registros del arreglo `$listaRegistros`
-        $listaPersonas = array_map($this->convertirArregloAPersona, $listaRegistros);
+        // Ejecutamos la función `convertirArregloDeBdAPersona` sobre cada uno de los registros del arreglo `$listaRegistros`
+        $listaPersonas = array_map($this->convertirArregloDeBdAPersona, $listaRegistros);
         return $listaPersonas;
     }
 
@@ -125,8 +125,8 @@ class Persona extends EntidadAbstracta implements JsonSerializable
             throw new Exception('NO_ENCONTRADO');
         }
 
-        // Ejecutamos la función referenciada en la variable `convertirArregloAPersona`
-        return ($this->convertirArregloAPersona)($registro);
+        // Ejecutamos la función referenciada en la variable `convertirArregloDeBdAPersona`
+        return ($this->convertirArregloDeBdAPersona)($registro);
     }
 
     public function insertar($entidad)
