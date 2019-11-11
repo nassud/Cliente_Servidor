@@ -1,1 +1,0 @@
-// Punto de entrada a la aplicación cliente

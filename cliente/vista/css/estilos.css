@@ -1,0 +1,46 @@
+/***** Estilos Generales INICIO *****/
+html {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.Boton button {
+    padding: 10px;
+    color: #fff;
+    background-color: #ED5600;
+    border-radius: 16px;
+    border: 2px solid #B74200;
+    width: 100px;
+}
+
+.Boton button:hover {
+    background-color: #FF8947;
+    cursor: pointer;
+}
+/***** Estilos Generales FIN *****/
+
+
+/***** Formulario INICIO *****/
+.Formulario div {
+  margin: 10px;
+}
+.Formulario label {
+  min-width: 200px;
+  display: inline-block;
+  text-align: right;
+}
+.Formulario input {
+    width: 70%;
+    min-width: 200px;
+}
+/***** Formulario FIN *****/
+
+/***** Tabla INICIO *****/
+.Tabla {
+  width: 100%;
+}
+
+.Tabla thead {
+  background-color: #ed5600;
+  color: #fff;
+}
+/***** Tabla FIN *****/
