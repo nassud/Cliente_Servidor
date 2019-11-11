@@ -12,7 +12,7 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uri = explode( '/', $uri );
 
-//print_r($uri);
+// print_r($uri);
 
 // Si la URL solicitada no inicia con el segmento `personas` entonces devolvemos una respuesta de NO ENCONTRADO
 if ($uri[2] !== 'personas') {

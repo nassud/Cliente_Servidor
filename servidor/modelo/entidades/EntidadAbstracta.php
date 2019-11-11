@@ -9,7 +9,7 @@ abstract class EntidadAbstracta
     abstract public function seleccionarTodos();
     abstract public function seleccionarUno($id);
     abstract public function insertar($entidad);
-    abstract public function modificar($entidad);
+    abstract public function modificar($id, $entidad);
     abstract public function eliminar($id);
 
     /**
