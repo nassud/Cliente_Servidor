@@ -13,10 +13,14 @@ Tecnologías en uso
 
 ## Uso de dominios
 ### Agregar entradas de dominio a archivo hosts
+```
 127.0.0.1 api.clienteservidor.ue
 127.0.0.1 clienteservidor.ue
+```
 
 ### Agregar hosts virtuales a Apache
+
+```xml
 <VirtualHost *:80>
     ServerAdmin admin@correoadmin.com
     DocumentRoot "C:/xampp/htdocs/proys/Cliente_Servidor/servidor"
@@ -34,6 +38,7 @@ Tecnologías en uso
     ErrorLog "logs/ClienteServidor-error.log"
     CustomLog "logs/ClienteServidor-access.log" common
 </VirtualHost>
+```
 
 
 ## Diseño
