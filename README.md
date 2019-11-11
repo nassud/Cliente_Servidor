@@ -34,3 +34,8 @@ Tecnologías en uso
     ErrorLog "logs/ClienteServidor-error.log"
     CustomLog "logs/ClienteServidor-access.log" common
 </VirtualHost>
+
+
+## Diseño
+### Colores
+Generados por https://paletton.com/#uid=10l0u0kswAChIKpn6Es-5tLAYn1
