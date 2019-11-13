@@ -23,6 +23,7 @@ function renderizarTablaPersonas(arregloPersonas) {
 }
 
 function renderizarDetallePersona(objetoPersona) {
+
   $("#formularioDetallePersona #tipo_documento").val(objetoPersona["tipoDocumento"]);
   $("#formularioDetallePersona #numero_documento").val(objetoPersona["numeroDocumento"]);
   $("#formularioDetallePersona #primer_nombre").val(objetoPersona["primerNombre"]);
@@ -32,6 +33,7 @@ function renderizarDetallePersona(objetoPersona) {
   $("#formularioDetallePersona #correoe").val(objetoPersona["correoElectronico"]);
   $("#formularioDetallePersona #cumpleanos").val(objetoPersona["fechaNacimiento"]);
   console.log(objetoPersona["fechaNacimiento"]);
+
 }
 
 function obtenerPersonas() {
@@ -50,6 +52,29 @@ function obtenerPersona(id) {
   });
 }
 
-function inicializarVista() {
-  obtenerPersonas();
+function crearPersona() {
+  $.ajax({
+    url: `${HOST}/${HOST_SCRIPT}/personas`,
+    method: "POST"
+  }).then(function(data) {
+    // TODO Confirmar creación
+  });
+}
+
+function modificarPersona(id) {
+    $.ajax({
+      url: `${HOST}/${HOST_SCRIPT}/personas/${id}`,
+      method: "PUT"
+    }).then(function(data) {
+      // TODO Confirmar modificación
+    });
+  }
+
+function eliminarPersona(id) {
+  $.ajax({
+    url: `${HOST}/${HOST_SCRIPT}/personas/${id}`,
+    method: "DELETE"
+  }).then(function(data) {
+    // TODO Confirmar eliminación
+  });
 }
