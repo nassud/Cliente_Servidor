@@ -21,6 +21,16 @@ function renderizarTablaPersonas(arregloPersonas) {
 function renderizarDetallePersona(objetoPersona) {
   const tipoDocumento =  $("#formularioDetallePersona #tipo_documento");
   tipoDocumento.val(objetoPersona["tipoDocumento"]);
+  const tipoDocumento =  $("#formularioDetallePersona #numero_documento");
+  tipoDocumento.val(objetoPersona["numeroDocumento"]);
+  const tipoDocumento =  $("#formularioDetallePersona #primer_nombre");
+  tipoDocumento.val(objetoPersona["primerNombre"]);
+  const tipoDocumento =  $("#formularioDetallePersona #segundo_nombre");
+  tipoDocumento.val(objetoPersona["segundoNombre"]);
+  const tipoDocumento =  $("#formularioDetallePersona #primer_apellido");
+  tipoDocumento.val(objetoPersona["primerApellido"]);
+  const tipoDocumento =  $("#formularioDetallePersona #segundo_apellido");
+  tipoDocumento.val(objetoPersona["segundoApellido"]);
 }
 
 function obtenerPersonas() {
