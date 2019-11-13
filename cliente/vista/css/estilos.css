@@ -3,6 +3,24 @@ html {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: #FF8947;
+    margin-bottom: 20px;
+    color: #fff;
+    border-radius: 4px;
+}
+
+footer {
+    margin-top: 30px;
+    background-color: #B74200;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    border-radius: 4px;
+}
+
 .Boton button {
     padding: 10px;
     color: #fff;
