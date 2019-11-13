@@ -23,18 +23,17 @@ function renderizarTablaPersonas(arregloPersonas) {
 }
 
 function renderizarDetallePersona(objetoPersona) {
-  const tipoDocumento = $("#formularioDetallePersona #tipo_documento");
-  tipoDocumento.val(objetoPersona["tipoDocumento"]);
-  const tipoDocumento = $("#formularioDetallePersona #numero_documento");
-  tipoDocumento.val(objetoPersona["numeroDocumento"]);
-  const tipoDocumento = $("#formularioDetallePersona #primer_nombre");
-  tipoDocumento.val(objetoPersona["primerNombre"]);
-  const tipoDocumento = $("#formularioDetallePersona #segundo_nombre");
-  tipoDocumento.val(objetoPersona["segundoNombre"]);
-  const tipoDocumento = $("#formularioDetallePersona #primer_apellido");
-  tipoDocumento.val(objetoPersona["primerApellido"]);
-  const tipoDocumento = $("#formularioDetallePersona #segundo_apellido");
-  tipoDocumento.val(objetoPersona["segundoApellido"]);
+
+  $("#formularioDetallePersona #tipo_documento").val(objetoPersona["tipoDocumento"]);
+  $("#formularioDetallePersona #numero_documento").val(objetoPersona["numeroDocumento"]);
+  $("#formularioDetallePersona #primer_nombre").val(objetoPersona["primerNombre"]);
+  $("#formularioDetallePersona #segundo_nombre").val(objetoPersona["segundoNombre"]);
+  $("#formularioDetallePersona #primer_apellido").val(objetoPersona["primerApellido"]);
+  $("#formularioDetallePersona #segundo_apellido").val(objetoPersona["segundoApellido"]);
+  $("#formularioDetallePersona #correoe").val(objetoPersona["correoElectronico"]);
+  $("#formularioDetallePersona #cumpleanos").val(objetoPersona["fechaNacimiento"]);
+  console.log(objetoPersona["fechaNacimiento"]);
+
 }
 
 function obtenerPersonas() {

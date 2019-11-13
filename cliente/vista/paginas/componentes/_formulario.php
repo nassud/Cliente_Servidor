@@ -16,8 +16,8 @@
         <input type="text" id="segundo_nombre" name="segundo_nombre">
     </div>
     <div>
-        <label for="primero_apellido">Primer Apellido:</label>
-        <input type="text" id="primero_apellido" name="primero_apellido">
+        <label for="primer_apellido">Primer Apellido:</label>
+        <input type="text" id="primer_apellido" name="primer_apellido">
     </div>
     <div>
         <label for="segundo_apellido">Segundo Apellido:</label>
