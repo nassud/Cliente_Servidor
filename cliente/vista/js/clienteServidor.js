@@ -23,17 +23,17 @@ function renderizarTablaPersonas(arregloPersonas) {
 }
 
 function renderizarDetallePersona(objetoPersona) {
-  const tipoDocumento =  $("#formularioDetallePersona #tipo_documento");
+  const tipoDocumento = $("#formularioDetallePersona #tipo_documento");
   tipoDocumento.val(objetoPersona["tipoDocumento"]);
-  const tipoDocumento =  $("#formularioDetallePersona #numero_documento");
+  const tipoDocumento = $("#formularioDetallePersona #numero_documento");
   tipoDocumento.val(objetoPersona["numeroDocumento"]);
-  const tipoDocumento =  $("#formularioDetallePersona #primer_nombre");
+  const tipoDocumento = $("#formularioDetallePersona #primer_nombre");
   tipoDocumento.val(objetoPersona["primerNombre"]);
-  const tipoDocumento =  $("#formularioDetallePersona #segundo_nombre");
+  const tipoDocumento = $("#formularioDetallePersona #segundo_nombre");
   tipoDocumento.val(objetoPersona["segundoNombre"]);
-  const tipoDocumento =  $("#formularioDetallePersona #primer_apellido");
+  const tipoDocumento = $("#formularioDetallePersona #primer_apellido");
   tipoDocumento.val(objetoPersona["primerApellido"]);
-  const tipoDocumento =  $("#formularioDetallePersona #segundo_apellido");
+  const tipoDocumento = $("#formularioDetallePersona #segundo_apellido");
   tipoDocumento.val(objetoPersona["segundoApellido"]);
 }
 
@@ -53,6 +53,29 @@ function obtenerPersona(id) {
   });
 }
 
-function inicializarVista() {
-  obtenerPersonas();
+function crearPersona() {
+  $.ajax({
+    url: `${HOST}/${HOST_SCRIPT}/personas`,
+    method: "POST"
+  }).then(function(data) {
+    // TODO Confirmar creación
+  });
+}
+
+function modificarPersona(id) {
+    $.ajax({
+      url: `${HOST}/${HOST_SCRIPT}/personas/${id}`,
+      method: "PUT"
+    }).then(function(data) {
+      // TODO Confirmar modificación
+    });
+  }
+
+function eliminarPersona(id) {
+  $.ajax({
+    url: `${HOST}/${HOST_SCRIPT}/personas/${id}`,
+    method: "DELETE"
+  }).then(function(data) {
+    // TODO Confirmar eliminación
+  });
 }
