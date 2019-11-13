@@ -12,7 +12,11 @@ function renderizarTablaPersonas(arregloPersonas) {
               <td>${persona.primerNombre} ${persona.segundoNombre} ${persona.primerApellido} ${persona.segundoApellido}</td>
               <td>${persona.fechaNacimiento}</td>
               <td>${persona.correoElectronico}</td>
-              <td>Ver/Editar</td>
+              <td>
+              <a href="?p=detalle&id=${persona.id}">Ver</a> |
+              <a href="?p=editar&id=${persona.id}">Editar</a> |
+              <a href="?id=${persona.id}">Eliminar</a>
+            </td>
           </tr>`;
   });
   nodoCuerpoTabla.html(personasHTML);
