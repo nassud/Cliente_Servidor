@@ -1,4 +1,4 @@
-<form class="Formulario">
+<form class="Formulario" id="formularioDetallePersona">
     <div>
         <label for="tipo_documento">Tipo Documento:</label>
         <input type="text" id="tipo_documento" name="tipo_documento">
