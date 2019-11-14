@@ -33,7 +33,6 @@ function renderizarDetallePersona(objetoPersona) {
   $("#formularioDetallePersona #correoe").val(objetoPersona["correoElectronico"]);
   $("#formularioDetallePersona #cumpleanos").val(objetoPersona["fechaNacimiento"]);
   console.log(objetoPersona["fechaNacimiento"]);
-
 }
 
 function obtenerPersonas() {
@@ -52,10 +51,11 @@ function obtenerPersona(id) {
   });
 }
 
-function crearPersona() {
+function crearPersona(persona) {
   $.ajax({
     url: `${HOST}/${HOST_SCRIPT}/personas`,
-    method: "POST"
+    method: "POST",
+    data: JSON.stringify(persona)
   }).then(function(data) {
     // TODO Confirmar creación
   });

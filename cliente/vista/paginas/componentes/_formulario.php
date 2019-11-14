@@ -31,7 +31,8 @@
         <label for="correoe">Correo-e:</label>
         <input type="email" id="correoe" name="correoe">
     </div>
+    <input type="hidden" id="avatar" name="avatar">
     <div class="Boton">
-        <button type="button">Adicionar</button>
+        <button id="botonEnviarFormulario" type="button">Adicionar</button>
     </div>
 </form>

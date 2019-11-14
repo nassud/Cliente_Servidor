@@ -71,8 +71,6 @@ class Persona extends EntidadAbstracta implements JsonSerializable
             $persona->setFechaNacimiento($registro['fechaNacimiento']);
             $persona->setCorreoElectronico($registro['correoElectronico']);
             $persona->setAvatar($registro['avatar']);
-            $persona->setFechaCreacion($registro['fechaCreacion']);
-            $persona->setFechaActualizacion($registro['fechaActualizacion']);
             return $persona;
         };
     }
@@ -136,8 +134,8 @@ class Persona extends EntidadAbstracta implements JsonSerializable
 
         $query = "INSERT INTO " . $this->NOMBRE_TABLA . "
             (TIPO_DOCUMENTO, NUMERO_DOCUMENTO, PRIMER_NOMBRE, SEGUNDO_NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO, FECHA_NACIMIENTO, 
-            CORREO_ELECTRONICO, AVATAR, FECHA_CREACION)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            CORREO_ELECTRONICO, AVATAR, FECHA_CREACION, FECHA_ACTUALIZACION)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $sentencia = $this->conexion->prepare($query);
         $sentencia->bindParam(1, $entidad->tipoDocumento);
@@ -150,6 +148,7 @@ class Persona extends EntidadAbstracta implements JsonSerializable
         $sentencia->bindParam(8, $entidad->correoElectronico);
         $sentencia->bindParam(9, $entidad->avatar);
         $sentencia->bindParam(10, $fecha_actual);
+        $sentencia->bindParam(11, $fecha_actual);
 
         if ($sentencia->execute()) {
             print("El registro ha sido añadido");
