@@ -47,6 +47,9 @@ function obtenerPersona(id) {
   $.ajax({
     url: `${HOST}/${HOST_SCRIPT}/personas/${id}`
   }).then(function(data) {
+    if(data.body === 'NO_ENCONTRADO'){
+      location.href = '?p=404';
+    }
     renderizarDetallePersona(data.body);
   });
 }
