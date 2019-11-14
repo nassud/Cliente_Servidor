@@ -75,10 +75,9 @@ class PersonasControlador extends ControladorAbstracto
     {
         $id = $this->identificadorRegistro;
         try {
-            $resultado = $this->personaEntidad->seleccionarUno($id);
             $personaEnArreglo = (array) json_decode(file_get_contents('php://input'), true);
             $personaEnObjeto = ($this->personaEntidad->convertirArregloDeJsonAPersona)($personaEnArreglo);
-            $this->personaEntidad->modificar($id, $personaEnObjeto);
+            $resultado = $this->personaEntidad->modificar($id, $personaEnObjeto);
 
             return $resultado;
         } catch (Exception $excepcion) {

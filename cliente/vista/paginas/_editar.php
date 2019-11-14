@@ -10,6 +10,7 @@ if($identificadorRegistro === null){
 }
 ?>
 <div>
+    <h2>Editar registro <?=$identificadorRegistro?></h2>
     <?php include 'componentes/_formulario.php'?>
     <div class="Botones">
         <div class="Boton">
@@ -26,7 +27,8 @@ if($identificadorRegistro === null){
         obtenerPersona(<?=$identificadorRegistro?>);
 
         $('#botonEnviarFormulario').bind("click", function() {
-            const nuevaPersona = {
+            const persona = {
+                id: $("#formularioDetallePersona #id").val(),
                 tipoDocumento: $("#formularioDetallePersona #tipo_documento").val(),
                 numeroDocumento: $("#formularioDetallePersona #numero_documento").val(),
                 primerNombre: $("#formularioDetallePersona #primer_nombre").val(),
@@ -37,7 +39,7 @@ if($identificadorRegistro === null){
                 fechaNacimiento: $("#formularioDetallePersona #cumpleanos").val(),
                 avatar: $("#formularioDetallePersona #avatar").val()
             }
-            crearPersona(nuevaPersona);
+            modificarPersona(persona);
         });
     });
 </script>

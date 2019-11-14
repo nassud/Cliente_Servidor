@@ -23,15 +23,33 @@ function renderizarTablaPersonas(arregloPersonas) {
 }
 
 function renderizarDetallePersona(objetoPersona) {
-
-  $("#formularioDetallePersona #tipo_documento").val(objetoPersona["tipoDocumento"]);
-  $("#formularioDetallePersona #numero_documento").val(objetoPersona["numeroDocumento"]);
-  $("#formularioDetallePersona #primer_nombre").val(objetoPersona["primerNombre"]);
-  $("#formularioDetallePersona #segundo_nombre").val(objetoPersona["segundoNombre"]);
-  $("#formularioDetallePersona #primer_apellido").val(objetoPersona["primerApellido"]);
-  $("#formularioDetallePersona #segundo_apellido").val(objetoPersona["segundoApellido"]);
-  $("#formularioDetallePersona #correoe").val(objetoPersona["correoElectronico"]);
-  $("#formularioDetallePersona #cumpleanos").val(objetoPersona["fechaNacimiento"]);
+  $("#formularioDetallePersona #id").val(
+    objetoPersona["id"]
+  );
+  $("#formularioDetallePersona #tipo_documento").val(
+    objetoPersona["tipoDocumento"]
+  );
+  $("#formularioDetallePersona #numero_documento").val(
+    objetoPersona["numeroDocumento"]
+  );
+  $("#formularioDetallePersona #primer_nombre").val(
+    objetoPersona["primerNombre"]
+  );
+  $("#formularioDetallePersona #segundo_nombre").val(
+    objetoPersona["segundoNombre"]
+  );
+  $("#formularioDetallePersona #primer_apellido").val(
+    objetoPersona["primerApellido"]
+  );
+  $("#formularioDetallePersona #segundo_apellido").val(
+    objetoPersona["segundoApellido"]
+  );
+  $("#formularioDetallePersona #correoe").val(
+    objetoPersona["correoElectronico"]
+  );
+  $("#formularioDetallePersona #cumpleanos").val(
+    objetoPersona["fechaNacimiento"]
+  );
   console.log(objetoPersona["fechaNacimiento"]);
 }
 
@@ -47,8 +65,8 @@ function obtenerPersona(id) {
   $.ajax({
     url: `${HOST}/${HOST_SCRIPT}/personas/${id}`
   }).then(function(data) {
-    if(data.body === 'NO_ENCONTRADO'){
-      location.href = '?p=404';
+    if (data.body === "NO_ENCONTRADO") {
+      location.href = "?p=404";
     }
     renderizarDetallePersona(data.body);
   });
@@ -60,24 +78,25 @@ function crearPersona(persona) {
     method: "POST",
     data: JSON.stringify(persona)
   }).then(function(data) {
-    // TODO Confirmar creación
+    alert(data);
   });
 }
 
-function modificarPersona(id) {
-    $.ajax({
-      url: `${HOST}/${HOST_SCRIPT}/personas/${id}`,
-      method: "PUT"
-    }).then(function(data) {
-      // TODO Confirmar modificación
-    });
-  }
+function modificarPersona(persona) {
+  $.ajax({
+    url: `${HOST}/${HOST_SCRIPT}/personas/${persona.id}`,
+    method: "PUT",
+    data: JSON.stringify(persona)
+  }).then(function(data) {
+    alert(data);
+  });
+}
 
 function eliminarPersona(id) {
   $.ajax({
     url: `${HOST}/${HOST_SCRIPT}/personas/${id}`,
     method: "DELETE"
   }).then(function(data) {
-    // TODO Confirmar eliminación
+    alert(data);
   });
 }

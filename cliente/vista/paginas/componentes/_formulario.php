@@ -34,5 +34,6 @@ $modoDeSoloLectura = isset($modoDeSoloLectura) ? $modoDeSoloLectura : false;
         <label for="correoe">Correo-e:</label>
         <input type="email" id="correoe" <?=$modoDeSoloLectura ? 'readonly disabled' : ''?> name="correoe">
     </div>
+    <input type="hidden" id="id" name="id">
     <input type="hidden" id="avatar" name="avatar">
 </form>

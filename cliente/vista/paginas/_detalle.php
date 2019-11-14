@@ -10,6 +10,7 @@ if ($identificadorRegistro === null) {
 }
 ?>
 <div>
+    <h2>Ver registro <?=$identificadorRegistro?></h2>
     <?php
     $modoDeSoloLectura = true;
     include 'componentes/_formulario.php'
