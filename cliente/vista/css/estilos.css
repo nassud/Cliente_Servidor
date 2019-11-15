@@ -81,4 +81,10 @@ footer {
   background-color: #ed5600;
   color: #fff;
 }
+.elimina {
+  color: blue;
+  text-decoration: underline;
+}
+
+
 /***** Tabla FIN *****/

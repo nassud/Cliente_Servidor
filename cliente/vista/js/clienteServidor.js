@@ -15,7 +15,7 @@ function renderizarTablaPersonas(arregloPersonas) {
               <td>
               <a href="?p=detalle&id=${persona.id}">Ver</a> |
               <a href="?p=editar&id=${persona.id}">Editar</a> |
-              <a href="?id=${persona.id}">Eliminar</a>
+              <a class='elimina' onclick='eliminarPersona(${persona.id})'">Eliminar</a>
             </td>
           </tr>`;
   });
@@ -50,7 +50,6 @@ function renderizarDetallePersona(objetoPersona) {
   $("#formularioDetallePersona #cumpleanos").val(
     objetoPersona["fechaNacimiento"]
   );
-  console.log(objetoPersona["fechaNacimiento"]);
 }
 
 function obtenerPersonas() {
@@ -73,12 +72,14 @@ function obtenerPersona(id) {
 }
 
 function crearPersona(persona) {
+  console.log(persona);
   $.ajax({
     url: `${HOST}/${HOST_SCRIPT}/personas`,
     method: "POST",
     data: JSON.stringify(persona)
   }).then(function(data) {
     alert(data);
+    location.href = "?p=inicio";
   });
 }
 
@@ -89,14 +90,19 @@ function modificarPersona(persona) {
     data: JSON.stringify(persona)
   }).then(function(data) {
     alert(data);
+    location.href = "?p=inicio";
   });
 }
 
 function eliminarPersona(id) {
-  $.ajax({
-    url: `${HOST}/${HOST_SCRIPT}/personas/${id}`,
-    method: "DELETE"
-  }).then(function(data) {
-    alert(data);
-  });
+  let flag = confirm("Esta seguro que desea eliminar la informacion");
+  if(flag == true){
+    $.ajax({
+      url: `${HOST}/${HOST_SCRIPT}/personas/${id}`,
+      method: "DELETE"
+    }).then(function(data) {
+      alert(data);
+      location.href = "?p=inicio";
+    });
+}
 }

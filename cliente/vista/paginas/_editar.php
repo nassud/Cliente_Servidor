@@ -17,7 +17,7 @@ if($identificadorRegistro === null){
             <button id="botonEnviarFormulario" type="button">Editar</button>
         </div>
         <div class="BotonSecundario">
-            <button onclick="history.back()" type="button">Volver</button>
+            <button onclick="history.back()" type="button" id="back">Volver</button>
         </div>
     </div>
 </div>
