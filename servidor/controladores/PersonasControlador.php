@@ -85,8 +85,9 @@ class PersonasControlador extends ControladorAbstracto
         }
     }
 
-    private function eliminarPersona(){
-        
+    private function eliminarPersona()
+    {
+
         $id = $this->identificadorRegistro;
         try {
             $resultado = $this->personaEntidad->seleccionarUno($id);
@@ -95,14 +96,10 @@ class PersonasControlador extends ControladorAbstracto
         } catch (Exception $excepcion) {
             return $excepcion->getMessage();
         }
-
     }
-
-
 
     private function respuestaNoEncontrado()
     {
-
-        print("La RUTA o el METODO utilizado no son correctos");
+        print("La RUTA o el MÉTODO utilizado no son correctos");
     }
 }
