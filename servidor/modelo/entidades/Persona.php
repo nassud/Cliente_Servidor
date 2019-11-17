@@ -151,7 +151,7 @@ class Persona extends EntidadAbstracta implements JsonSerializable
         $sentencia->bindParam(11, $fecha_actual);
 
         if ($sentencia->execute()) {
-            print("El registro ha sido añadido");
+            print(json_encode("El registro ha sido añadido"));
         } else {
             print_r($sentencia->errorInfo());
         }
@@ -180,7 +180,7 @@ class Persona extends EntidadAbstracta implements JsonSerializable
 
 
         if ($sentencia->execute()) {
-            print("El registro ha sido actualizado");
+            print(json_encode("El registro ha sido actualizado"));
         } else {
             print_r($sentencia->errorInfo());
         }
@@ -193,7 +193,7 @@ class Persona extends EntidadAbstracta implements JsonSerializable
         $sentencia = $this->conexion->prepare($query);
         $sentencia->bindParam(1, $id);
         if ($sentencia->execute()) {
-            print("El registro ha sido eliminado");
+            print(json_encode("El registro ha sido eliminado"));
         } else {
             print_r($sentencia->errorInfo());
         }
