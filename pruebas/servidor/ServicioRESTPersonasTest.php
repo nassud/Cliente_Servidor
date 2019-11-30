@@ -48,6 +48,9 @@ class ServicioRESTPersonasTest extends TestCase
         $this->assertGreaterThan(1, sizeof($objetoRespuesta->body));
     }
 
+    /**
+     * Prueba que exista el registro 1 de los datos ejemplo y sus campos concuerden con los esperados
+     */
     public function testPersonaUnoExisteYDatosConcuerdan() {
         $respuesta = $this->clienteHTTP->request('GET', 'personas/1');
         $stringRespuesta = (string) $respuesta->getBody();
