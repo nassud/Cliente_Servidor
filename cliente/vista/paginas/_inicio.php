@@ -16,6 +16,10 @@
     $(document).ready(function() {
         obtenerPersonas();
         $('#botonEnviarFormulario').bind("click", function() {
+
+            if(!validarFormulario())
+                return
+
             const nuevaPersona = {
                 tipoDocumento: $("#formularioDetallePersona #tipo_documento").val(),
                 numeroDocumento: $("#formularioDetallePersona #numero_documento").val(),
@@ -27,18 +31,8 @@
                 fechaNacimiento: $("#formularioDetallePersona #cumpleanos").val(),
                 avatar: $("#formularioDetallePersona #avatar").val()
             }
-            let flag = false;
-            for(const item in nuevaPersona)
-            {
-                if(nuevaPersona[item] == ''){
-                    alert(`El campo ${item} no puede estar vacio`);
-                    flag = true;
-                    break;
-                }
-            }
-            if(flag != true){
-                crearPersona(nuevaPersona);
-            }
+
+            crearPersona(nuevaPersona);
         });
     });
 </script>

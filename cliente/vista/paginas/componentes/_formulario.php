@@ -4,35 +4,42 @@ $modoDeSoloLectura = isset($modoDeSoloLectura) ? $modoDeSoloLectura : false;
 <form class="Formulario" id="formularioDetallePersona">
     <div>
         <label for="tipo_documento">Tipo Documento:</label>
-        <input type="text" id="tipo_documento" <?= $modoDeSoloLectura ? 'readonly disabled' : '' ?> name="tipo_documento">
+        <select id="tipo_documento" <?=$modoDeSoloLectura ? 'readonly disabled' : ''?> name="tipo_documento">
+            <option value="">-- Seleccione una opción --</option>
+            <option value="cc">Cédula de Ciudadanía</option>
+            <option value="ce">Cédula de Extranjería</option>
+            <option value="ti">Tarjeta de Identidad</option>
+            <option value="nuip">NUIP</option>
+            <option value="pp">Pasaporte</option>
+        </select>
     </div>
     <div>
         <label for="numero_documento">Número Documento:</label>
-        <input type="text" id="numero_documento" <?= $modoDeSoloLectura ? 'readonly disabled' : '' ?> name="numero_documento">
+        <input type="text" id="numero_documento" <?=$modoDeSoloLectura ? 'readonly disabled' : ''?> name="numero_documento">
     </div>
     <div>
         <label for="primer_nombre">Primer Nombre:</label>
-        <input type="text" id="primer_nombre" <?= $modoDeSoloLectura ? 'readonly disabled' : '' ?> name="primer_nombre">
+        <input type="text" id="primer_nombre" <?=$modoDeSoloLectura ? 'readonly disabled' : ''?> name="primer_nombre">
     </div>
     <div>
         <label for="segundo_nombre">Segundo Nombre:</label>
-        <input type="text" id="segundo_nombre" <?= $modoDeSoloLectura ? 'readonly disabled' : '' ?> name="segundo_nombre">
+        <input type="text" id="segundo_nombre" <?=$modoDeSoloLectura ? 'readonly disabled' : ''?> name="segundo_nombre">
     </div>
     <div>
         <label for="primer_apellido">Primer Apellido:</label>
-        <input type="text" id="primer_apellido" <?= $modoDeSoloLectura ? 'readonly disabled' : '' ?> name="primer_apellido">
+        <input type="text" id="primer_apellido" <?=$modoDeSoloLectura ? 'readonly disabled' : ''?> name="primer_apellido">
     </div>
     <div>
         <label for="segundo_apellido">Segundo Apellido:</label>
-        <input type="text" id="segundo_apellido" <?= $modoDeSoloLectura ? 'readonly disabled' : '' ?> name="segundo_apellido">
+        <input type="text" id="segundo_apellido" <?=$modoDeSoloLectura ? 'readonly disabled' : ''?> name="segundo_apellido">
     </div>
     <div>
         <label for="cumpleanos">Cumpleaños:</label>
-        <input type="date" id="cumpleanos" <?= $modoDeSoloLectura ? 'readonly disabled' : '' ?> name="cumpleanos">
+        <input type="date" id="cumpleanos" <?=$modoDeSoloLectura ? 'readonly disabled' : ''?> name="cumpleanos">
     </div>
     <div>
         <label for="correoe">Correo-e:</label>
-        <input type="email" id="correoe" <?= $modoDeSoloLectura ? 'readonly disabled' : '' ?> name="correoe">
+        <input type="email" id="correoe" <?=$modoDeSoloLectura ? 'readonly disabled' : ''?> name="correoe">
     </div>
     <input type="hidden" id="id" name="id">
     <input type="hidden" id="avatar" name="avatar" value="avatar">

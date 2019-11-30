@@ -8,6 +8,7 @@
 <table class="Tabla">
     <thead>
         <tr>
+            <th>Documento</th>
             <th>Nombre</th>
             <th>Cumpleaños</th>
             <th>Correo electrónico</th>

@@ -55,6 +55,10 @@ footer {
   background-color: #ff8947;
   cursor: pointer;
 }
+
+select.Error, input.Error {
+  border: solid 2px red;
+}
 /***** Estilos Generales FIN *****/
 
 /***** Formulario INICIO *****/

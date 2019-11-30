@@ -27,6 +27,9 @@ if($identificadorRegistro === null){
         obtenerPersona(<?=$identificadorRegistro?>);
 
         $('#botonEnviarFormulario').bind("click", function() {
+            if(!validarFormulario())
+                return
+
             const persona = {
                 id: $("#formularioDetallePersona #id").val(),
                 tipoDocumento: $("#formularioDetallePersona #tipo_documento").val(),
@@ -39,6 +42,7 @@ if($identificadorRegistro === null){
                 fechaNacimiento: $("#formularioDetallePersona #cumpleanos").val(),
                 avatar: $("#formularioDetallePersona #avatar").val()
             }
+            
             modificarPersona(persona);
         });
     });
